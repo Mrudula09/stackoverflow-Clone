@@ -1,0 +1,9 @@
+branch-defaults:
+  master:
+    environment: null
+global:
+  application_name: stackoverflowClone
+  default_platform: Python 3.6
+  default_region: us-west-2
+  profile: eb-cli
+  sc: git
