@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% include "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+    <div class="row">
+  <div class="col-2" id="container-left">
+      <br/><br/><br/><br/>
+      <div class="left">
+          <h6><a class="text-muted" href="{% url 'question_list' %}">Home</a></h6>
+          <br/>
+          <h5>PUBLIC</h5>
+          <div class="inner-left">
+              <h6><span class="glyphicon glyphicon-globe"></span><a class="text-muted" href="{% url 'question_list' %}">Stack overflow</a></h6>
+              <h6><a class="text-muted" href="{% url 'question_list' %}">Tags</a></h6>
+              <h6><a class="text-muted" href="{% url 'question_list' %}">Users</a></h6>
+          </div>
+      </div>
+  </div>
+  <div class="col-10" align="center">
+    <br/><br/><br/><br/>
+      <div class="card border-primary mb-3" style="max-width: 18rem;">
+          <div class="card-header text-primary"><b>CREATE PROFILE</b></div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label>Place</label><br/>
+                    {{ form.place }}
+                    <br/><br/>
+                    <label>College</label><br/>
+                    {{ form.college }}
+                    <br/><br/>
+                    <label>Degree</label><br/>
+                    {{ form.degree }}
+                    <br/><br/>
+                    <label>Profile Image</label><br/>
+                    {{ form.profile_image }}
+                    <br/><br/>
+                    <input type="submit" class="btn btn-primary" value="Submit"/>
+                </form>
+            </div>
+      </div>
+  </div>
+</body>
+</html>

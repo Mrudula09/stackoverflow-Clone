@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% include "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>List of questions</title>
+</head>
+<body>
+    <div class="row">
+  <div class="col-2" id="container-left">
+      <br/><br/><br/><br/>
+      <div class="left">
+          <h6><a class="text-muted" href="{% url 'question_list' %}">Home</a></h6>
+          <br/>
+          <h5>PUBLIC</h5>
+          <div class="inner-left">
+              <h6><span class="glyphicon glyphicon-globe"></span><a class="text-muted" href="{% url 'question_list' %}">Stack overflow</a></h6>
+              <h6><a class="text-muted" href="{% url 'tag_list' %}">Tags</a></h6>
+              <h6><a class="text-muted" href="{% url 'users' %}">Users</a></h6>
+          </div>
+      </div>
+  </div>
+  <div class="col-10">
+      <br/><br/><br/><br/>
+      <h1 class="heading">Questions</h1>
+      <button type="button" class="btn btn-primary" id="button-question"><a class="askQuestion" href="{% url 'ask_question' %}">Ask Question</a></button>
+      <br/><br/><hr/>
+      <div id="questions_container">
+          {% for x in questions %}
+          <h3><a href="{% url 'answer_list' x.id %}">{{ x.title }}</a></h3>
+            <p>{{ x.description }}</p>
+            <br/><hr/>
+          {% endfor %}
+      </div>
+  </div>
+    </div>
+</body>
+</html>

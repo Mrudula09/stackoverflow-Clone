@@ -1,0 +1,45 @@
+.askQuestion
+{
+    color:white;
+
+}
+
+#button-question
+{
+    display:inline-block;
+     margin-right:50px;
+     float:right;
+}
+
+#container-left
+{
+    border-right: 1px solid;
+}
+
+.heading
+{
+    display:inline-block;
+}
+
+.left
+{
+    margin-left:10px;
+    position: fixed;
+    z-index: 1030;
+}
+
+.inner-left
+{
+     margin-left:20px;
+}
+
+.comments
+{
+    text-align: right;
+    margin-right:25px;
+}
+
+.answerbtn
+{
+    float:right;
+}

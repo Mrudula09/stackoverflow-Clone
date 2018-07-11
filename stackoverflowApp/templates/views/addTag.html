@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% include "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Tag</title>
+</head>
+<body>
+    <div class="row">
+  <div class="col-2" id="container-left">
+      <br/><br/><br/><br/>
+      <div class="left">
+          <h6><a class="text-muted" href="{% url 'question_list' %}">Home</a></h6>
+          <br/>
+          <h5>PUBLIC</h5>
+          <div class="inner-left">
+              <h6><span class="glyphicon glyphicon-globe"></span><a class="text-muted" href="{% url 'question_list' %}">Stack overflow</a></h6>
+              <h6><a class="text-muted" href="{% url 'question_list' %}">Tags</a></h6>
+              <h6><a class="text-muted" href="{% url 'question_list' %}">Users</a></h6>
+          </div>
+      </div>
+  </div>
+  <div class="col-10" align="center">
+    <br/><br/><br/><br/>
+      <div class="card border-primary mb-3" style="max-width: 18rem;">
+          <div class="card-header text-primary"><b>ADD TAG</b></div>
+            <div class="card-body">
+                <form action="" method="post">
+                {% csrf_token %}
+                <label>Title</label><br/>
+                {{ form.name }}
+                <br/><br/>
+                <label>Description</label><br/>
+                {{ form.information }}
+                <br/><br/>
+                <input type="submit" class="btn btn-primary" value="Add tag"/>
+                </form>
+            </div>
+      </div>
+  </div>
+    </div>
+</body>
+</html>

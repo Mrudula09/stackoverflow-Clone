@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% include "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tags</title>
+</head>
+<body>
+    <br/><br/><br/><br/>
+    <div class="row">
+  <div class="col-2" id="container-left">
+      <div class="left">
+          <h6><a class="text-muted" href="{% url 'question_list' %}">Home</a></h6>
+          <br/>
+          <h5>PUBLIC</h5>
+          <div class="inner-left">
+              <h6><span class="glyphicon glyphicon-globe"></span><a class="text-muted" href="{% url 'question_list' %}">Stack overflow</a></h6>
+              <h6><a class="text-muted" href="{% url 'tag_list' %}">Tags</a></h6>
+              <h6><a class="text-muted" href="{% url 'users' %}">Users</a></h6>
+          </div>
+      </div>
+  </div>
+    <div class="col-10">
+        <h6><a href="{% url 'create_tag' %}"><i class="fa fa-plus-square"></i> ADD TAG</a></h6>
+
+        <div class="row">
+            {% for tag in tags %}
+            <div class="col-3">
+                <div class="card border-primary mb-3" style="max-width: 20rem;">
+                <h4 class="card-header">{{ tag.name }}</h4>
+                <div class="card-body">
+                    <p class="card-text">{{ tag.information }}</p>
+                </div>
+                </div>
+            </div>
+            {% endfor %}
+         </div>
+
+
+    </div>
+    </div>
+</body>
+</html>

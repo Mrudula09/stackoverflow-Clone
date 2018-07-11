@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% include "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+  <div class="row">
+      <div class="col-2" id="container-left">
+          <br/><br/><br/><br/>
+          <div class="left">
+              <h6><a class="text-muted" href="{% url 'question_list' %}">Home</a></h6>
+              <br/>
+              <h5>PUBLIC</h5>
+              <div class="inner-left">
+                  <h6><span class="glyphicon glyphicon-globe"></span><a class="text-muted" href="{% url 'question_list' %}">Stack overflow</a></h6>
+                  <h6><a class="text-muted" href="{% url 'tag_list' %}">Tags</a></h6>
+                  <h6><a class="text-muted" href="{% url 'users' %}">Users</a></h6>
+              </div>
+          </div>
+      </div>
+      <div class="col-10" style="padding-left:100px">
+        <br/><br/><br/><br/>
+          <div class="row">
+                      <div class="card border-primary mb-3 col-6" align="center" style="max-width: 24rem;">
+                            <div class="card-body">
+                                <img src="{{ profile.profile_image.url }}" height="300px" width="300px">
+                            </div>
+                      </div>
+                      <div class="col-6">
+                          <br/><br/>
+                          <h1>{{ user.first_name }} {{ user.last_name }}</h1>
+                          <h4>{{ profile.degree }} , {{ profile.college }}</h4>
+                          <h6>{{ profile.place }}</h6>
+                          <p>{{ user.email }}</p>
+                           <!--<a href="{% url 'update_profile' user.id %}">edit</a>-->
+                      </div>
+          </div>
+      </div>
+
+  </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,22 @@
+.header{
+    padding-bottom: 10px; 
+}
+
+.name{
+	font-style: italic;
+    float: left;
+    display:inline-block;
+    font-size: 20px;
+    padding: 0px;
+    margin: 0px;
+}
+
+.menu{
+    float: right;
+}
+
+.name1{
+	font-size: 25px;
+	font-style: normal;
+    display:inline-block;
+}

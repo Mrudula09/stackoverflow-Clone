@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+{% include "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+    <br/><br/><br/><br/>
+     <div class="row">
+  <div class="col-2" id="container-left">
+      <div class="left">
+          <h6><a class="text-muted" href="{% url 'question_list' %}">Home</a></h6>
+          <br/>
+          <h5>PUBLIC</h5>
+          <div class="inner-left">
+              <h6><span class="glyphicon glyphicon-globe"></span><a class="text-muted" href="{% url 'question_list' %}">Stack overflow</a></h6>
+              <h6><a class="text-muted" href="{% url 'tag_list' %}">Tags</a></h6>
+              <h6><a class="text-muted" href="{% url 'users' %}">Users</a></h6>
+          </div>
+      </div>
+  </div>
+  <div class="col-10">
+     <div class="row">
+        {% for user in users %}
+         <div class="col-4">
+        <div class="card border-primary mb-3" style="max-width: 30rem;">
+            <div class="card-header">{{ user.user.username }}</div>
+            <div class="card-body row">
+                <div class="col-4">
+                    <img src="{{ user.profile_image.url }}" height="80px" width="100px">
+                </div>
+                <div class="col-8">
+                    <p class="card-title">{{ user.place }}</p>
+                    <p class="card-text">{{ user.reputation }}</p>
+                </div>
+            </div>
+        </div>
+         </div>
+        {% endfor %}
+     </div>
+  </div>
+</body>
+</html>

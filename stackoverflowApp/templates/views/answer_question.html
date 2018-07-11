@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% include "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Answer Question</title>
+</head>
+<body>
+    <br/><br/><br/><br/><br/>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>

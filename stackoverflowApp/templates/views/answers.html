@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+{% include "base.html" %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Answers</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script type="text/javascript">
+     $(document).ready(function(){
+        $('.answerbtn').click(function(){
+            var txtbox=$('textarea').val();
+            qid = $(this).attr("data-qid");
+            document.getElementById('textbox').value = "";
+            $('#answer-container').append("<p>"+txtbox+"</p>");
+            console.log(qid)
+            $.ajax(
+            {
+                type:"GET",
+                url: "/answerQ",
+                data:{
+                     question_id: qid,
+                     answer: txtbox,
+                },
+                success: function( data )
+                {
+
+                }
+            })
+        });
+        $('#cmt').keydown(function (e){
+                if(e.keyCode == 13){
+                    var txtbox=$('#cmt').val();
+                    qid = $(this).attr("data-qid");
+                    aid = $(this).attr("data-aid");
+                    document.getElementById('cmt').value = "";
+                    $('#cmt-container'+aid).append("<p>"+txtbox+"</p>");
+                    console.log(qid)
+                    console.log(aid)
+                    $.ajax(
+                    {
+                        type:"GET",
+                        url: "/comment",
+                        data:{
+                             question_id: qid,
+                             answer_id:aid,
+                             comment: txtbox,
+                        },
+                        success: function( data )
+                        {
+
+                        }
+                    })
+            }
+        })
+        $('.likebtn').click(function(){
+            var aid,uid;
+            aid = $(this).attr("data-aid");
+            uid = $(this).attr("data-uid");
+            count = $(this).attr("data-count");
+            console.log(uid)
+            document.getElementById('like'+aid).value = "";
+            document.getElementById('like'+aid).innerHTML = Number(count) + 1
+            $.ajax(
+            {
+                type:"GET",
+                url: "/likepost",
+                data:{
+                         answer_id: aid,
+                         user_id: uid
+                },
+                success: function( data )
+                {
+                    $( '#like'+ catid ).text("Liked");
+                    $('#like'+ catid).prop('disabled', true);
+                }
+             })
+        });
+        $('.unlikebtn').click(function(){
+            var aid,uid;
+            uid = $(this).attr("data-uid");
+            aid = $(this).attr("data-aid");
+            count = $(this).attr("data-count");
+            console.log(uid)
+            document.getElementById('like'+aid).value = "";
+            document.getElementById('like'+aid).innerHTML = Number(count) - 1
+            $.ajax(
+            {
+                type:"GET",
+                url: "/unlikepost",
+                data:{
+                         answer_id: aid,
+                         user_id: uid
+                },
+                success: function( data )
+                {
+                    $( '#like'+ catid ).text("Liked");
+                    $('#like'+ catid).prop('disabled', true);
+                }
+             })
+        });
+     });
+    </script>
+</head>
+<body>
+<div class="row">
+  <div class="col-2" id="container-left">
+      <br/><br/><br/><br/>
+      <div class="left">
+          <h6><a class="text-muted" href="{% url 'question_list' %}">Home</a></h6>
+          <br/>
+          <h5>PUBLIC</h5>
+          <div class="inner-left">
+              <h6><span class="glyphicon glyphicon-globe"></span><a class="text-muted" href="{% url 'question_list' %}">Stack overflow</a></h6>
+              <h6><a class="text-muted" href="{% url 'tag_list' %}">Tags</a></h6>
+              <h6><a class="text-muted" href="{% url 'users' %}">Users</a></h6>
+          </div>
+      </div>
+  </div>
+    <div class="col-10">
+        <br/><br/><br/><br/>
+    <div>
+        <h2>{{ question.title }}</h2>
+        <p>{{ question.description }}</p>
+        <br/><hr/>
+    </div>
+    <h3><b>Answers:</b></h3>
+    <br/>
+    {% for x in answers %}
+    <div>
+        <div class="row">
+            <div class="col-2" align="center">
+                {% if x.id in like %}
+                <button type="button" class="btn btn-outline-primary likebtn" data-aid="{{ x.id }}" data-uid="{{ x.user_id }}" disabled><i class="fa fa-thumbs-o-up" style="font-size:28px"></i></button>
+                <br/>
+                <span>{{ x.likes }}</span>
+                <br/>
+                <button type="button" class="btn btn-outline-danger unlikebtn" data-aid="{{ x.id }}" data-uid="{{ x.user_id }}" disabled><i class="fa fa-thumbs-o-down" style="font-size:28px"></i></button>
+                {% else %}
+                <button type="button" class="btn btn-outline-primary likebtn" data-count="{{ x.likes }}" data-aid="{{ x.id }}" data-uid="{{ x.user_id }}"><i class="fa fa-thumbs-o-up" style="font-size:28px"></i></button>
+                <br/>
+                <span id="like{{ x.id }}">{{ x.likes }}</span>
+                <br/>
+                <button type="button" class="btn btn-outline-danger unlikebtn" data-count="{{ x.likes }}" data-aid="{{ x.id }}" data-uid="{{ x.user_id }}"><i class="fa fa-thumbs-o-down" style="font-size:28px"></i></button>
+                {% endif %}
+            </div>
+            <div class="col-10">
+                <p>{{ x.description }}</p>
+                <div class="comments">
+                {% for c in comment %}
+                    {% if c.answer_id ==  x.id  %}
+                    <hr/>
+                    <p>{{ c.description }}</p>
+                    {% endif %}
+                {% endfor %}
+                </div>
+                <div id="cmt-container{{ x.id }}"></div>
+                <br/><br/>
+                <input type="text" class="form-control" id="cmt" placeholder="comment..." data-qid="{{ x.question.id }}" data-aid="{{ x.id }}"/>
+                <br/>
+                </div>
+            </div>
+        <br/><br/>
+        </div>
+        {% endfor %}
+        <div class="row" style="margin-left:30px;padding:10px" id="answer-container">
+        </div>
+        <br/><br/>
+        <textarea cols="120" rows="10" id="textbox" style="margin-left:40px"></textarea>
+        <br/><br/>
+        <button class="btn btn-primary btn-lg answerbtn" style="float:right;margin-right:120px" data-qid="{{ question.id }}" id="answer">Answer</button>
+    </div>
+</div>
+</body>
+</html>
