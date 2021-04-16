@@ -11,7 +11,7 @@ colorama==0.3.3
 decorator==4.3.0
 Django==2.0.5
 django-codemirror2==0.2
-django-debug-toolbar==1.9.1
+django-debug-toolbar==1.11.1
 django-filter==1.1.0
 django-webpack-loader==0.6.0
 djangorestframework==3.8.2
